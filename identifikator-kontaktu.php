@@ -1,9 +1,8 @@
 <?php
 include 'lib.php';
-include 'process.php';
+
 
 echo page_header();
-
 
 //kontrola jestli je parametr použit
 if (!empty($_GET['user'])) {
@@ -11,13 +10,15 @@ if (!empty($_GET['user'])) {
         //kontrola, jestli do URL někdo nehodil nepovolené znaky
         $check = strip_tags($wholename);
         $check = preg_replace('/<[^>]*>/', '', $check);
-
-            if ($wholename  != $check){
+        $pieces = explode('-',$wholename);
+        $check_size = sizeof($pieces);
+        $firstname = $pieces[0];
+        $lastname = $pieces[1];
+                // kontrola jestli nemá array moc částí, nejsou zde nepovolené znaky a jestli záznam existuje
+            if ($wholename != $check OR $check_size != 2 OR user_exists($firstname,$lastname) == false){
                 echo "Špatné vstupní parametry!";
             }else {
-                $pieces = explode('-',$wholename);
-                $firstname = $pieces[0];
-                $lastname = $pieces[1];
+              
 
                 $user = get_users($firstname,$lastname);
                 
@@ -41,7 +42,7 @@ if (!empty($_GET['user'])) {
                         <td><input type = 'text' name ='lastname' value =' ".$user['lastname']."'></input></td>
                         <td><input type = 'text' name ='email' value =' ".$user['email']."'></input></td>
                         <td><input type = 'text' name ='telephone' value =' ".$user['telephone']."'></input></td>
-                        <td><textarea type = 'textfield' name ='description' value =' ".$user['description']."'></textarea></td>
+                        <td><textarea type = 'textfield' name ='description'>".$user['description']."</textarea></td>
 
                        
                     </tr>
@@ -61,7 +62,8 @@ if (!empty($_GET['user'])) {
 
   }else{
 
-    echo "Špatné vstupní parametry!";
+    echo "Špatné vstupní parametry!<br>";
+    echo "<a href='index.php'><button>Zpět</button></a>";
   }
 
 

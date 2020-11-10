@@ -96,6 +96,73 @@ function page_footer(){
         $conn->close();
             }
 
+/**********
+ * 
+ * 
+ * update uživatele
+ * 
+ ********/
+            
+     function update_user($user = null){
+
+
+        $conn = server_connect();
+       
+            $sql = "
+            UPDATE users
+            SET
+                firstname = '".$user->firstname."',
+                lastname = '".$user->lastname."',
+                email = '".$user->email."',
+                telephone = '".$user->telephone."',
+                description = '".$user->description."'
+
+            WHERE id = ".$user->id." ";   
+        
+        
+            if ($conn->query($sql) === TRUE) {
+                echo "Uživatel".$user->firstname." ".$user->lastname." byl úspěšně editován<br>";
+                echo "<a href='index.php'><button>Zpět</button></a>";
+              } else {
+                echo "Error updating record: " . $conn->error;
+              }
+        
+    
+    
+        $conn->close();
+            }
+
+
+/**********
+ * 
+ * 
+ * smazání uživatele
+ * 
+ */
+function delete_user($user = null){
+
+
+    $conn = server_connect();
+   
+        $sql = "
+        DELETE FROM users
+        WHERE id = ".$user->id." ";   
+    
+    
+        if ($conn->query($sql) === TRUE) {
+            echo "Uživatel".$user->firstname." ".$user->lastname." byl úspěšně smazán<br>";
+            echo "<a href='index.php'><button>Zpět</button></a>";
+          } else {
+            echo "Error updating record: " . $conn->error;
+          }
+    
+
+
+    $conn->close();
+        }
+
+
+
 
 /*******
  * 
@@ -146,27 +213,40 @@ function show_users_table(){
         return $output;
     }
 
+/***********
+ * 
+ * kontrola zda existuje v DB
+ * 
+ */
 
+function user_exists($firstname,$lastname){
 
-/****************
- * 
- * 
- * očištění jména od nechtěných tagů
- * 
- * 
- ************/
+$conn = server_connect();
+       
+$sql = "
+SELECT * FROM users
+WHERE firstname = '".$firstname."'
+    AND lastname = '".$lastname."' ";  
 
-function fixtags($text){
-    $text = htmlspecialchars($text);
-    $text = preg_replace("/=/", "=\"\"", $text);
-    $text = preg_replace("/&quot;/", "&quot;\"", $text);
-    $tags = "/&lt;(\/|)(\w*)(\ |)(\w*)([\\\=]*)(?|(\")\"&quot;\"|)(?|(.*)?&quot;(\")|)([\ ]?)(\/|)&gt;/i";
-    $replacement = "<$1$2$3$4$5$6$7$8$9$10>";
-    $text = preg_replace($tags, $replacement, $text);
-    $text = preg_replace("/=\"\"/", "=", $text);
-    return $text;
+$result = $conn->query($sql);
+    $res = $result->fetch_assoc();
+   // print_r($res); 
+        
+    $conn->close();
+    if(!empty($res)){
+
+        return true;
+    }else{
+        return false; 
     }
+    
+  }
 
+
+
+
+
+ 
 
 
 ?>

@@ -1,6 +1,5 @@
 <?php
 include 'lib.php';
-include 'process.php';
 
 
 echo page_header();
