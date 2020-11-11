@@ -1,19 +1,33 @@
 <?php
 include 'lib.php';
 $vars = $_POST;
-$user = (object)[
-    'id' => $_POST['id'],
-    'firstname' => $_POST['firstname'],
-    'lastname' => $_POST['lastname'],
-    'email' => $_POST['email'],
-    'telephone' => $_POST['telephone'],
-    'description' => $_POST['description'],
-];
+
+if(!empty($_POST['delete'])){
+
+    delete_user($_POST['id']);
+}else{
+
+        $user = (object)[
+            'id' => $_POST['id'],
+            'firstname' => $_POST['firstname'],
+            'lastname' => $_POST['lastname'],
+            'email' => $_POST['email'],
+            'telephone' => $_POST['telephone'],
+            'description' => $_POST['description']
+        ];
+        
 
 
-update_user($user);
+        if($user->id == 'new'){
+
+            create_user($user);
+        }else{
 
 
+        update_user($user);
+        }
+
+    }
 
 
 
