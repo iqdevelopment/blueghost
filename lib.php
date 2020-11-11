@@ -12,6 +12,8 @@ $output = "
 <html>
 <head>
 <title>Programátorský úkol</title>
+<link rel='stylesheet' href='./css/skeleton.css'
+
 </head>
 <body>
 ";
@@ -28,6 +30,8 @@ return $output;
 
 function page_footer(){ 
     $output = "
+    <footer class='footer'><a href='https://github.com/iqdevelopment/blueghost'><button>https://github.com/iqdevelopment/blueghost</button></a>
+    </footer>
     </body>
     </html>
     ";
