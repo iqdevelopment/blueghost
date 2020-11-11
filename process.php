@@ -1,5 +1,6 @@
 <?php
 include 'lib.php';
+echo page_header();
 $vars = $_POST;
 
 if(!empty($_POST['delete'])){
@@ -30,5 +31,5 @@ if(!empty($_POST['delete'])){
     }
 
 
-
+    echo page_footer();
 ?>

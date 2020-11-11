@@ -48,8 +48,8 @@ function page_footer(){
     function server_connect(){
 
     $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $username = "blueghost";
+    $password = "blueghost";
     $dbname = "blueghost";
 
    
