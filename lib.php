@@ -11,6 +11,7 @@ $output = "
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
 <title>Programátorský úkol</title>
 <link rel='stylesheet' href='./css/skeleton.css'
 
