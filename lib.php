@@ -401,6 +401,30 @@ if($user == NULL){
 
 
 
+   function check_inputs($user){
+           $error = "";
+           foreach ($user as $key => $value) {
+            $check = strip_tags($value);
+            $check = preg_replace('/<[^>]*>/', '', $check);
+             if ($value != $check){
+              $error = 'wrong chars<br>
+              echo <a href="index.php"><button>Zpět</button></a>
+              ';
+              
+             }
+             elseif($value == ''){
+             $error = 'not filled<br>
+             <a href="index.php"><button>Zpět</button></a>';
+             }
+        
+            
+            }
+            return $error;
+        
+   
+   }
+
+
 
  
 

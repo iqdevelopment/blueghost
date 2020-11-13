@@ -19,13 +19,24 @@ if(!empty($_POST['delete'])){
         
 
 
-        if($user->id == 'new'){
 
-            create_user($user);
+
+        if($user->id == 'new'){
+            $check = check_inputs($user);
+            if(!empty($check)){
+                echo $check;
+            }else{
+
+            create_user($user);}
         }else{
 
+            $check = check_inputs($user);
+            if(!empty($check)){
+                echo $check;
+            }else{
 
-        update_user($user);
+                update_user($user);}
+      
         }
 
     }
